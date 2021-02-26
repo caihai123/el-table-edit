@@ -27,5 +27,13 @@
   },
   "dependencies": {
     "async-validator": "^1.8.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caihai123/el-table-edit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/caihai123/el-table-edit/issues"
+  },
+  "homepage": "https://github.com/caihai123/el-table-edit#readme"
 }
