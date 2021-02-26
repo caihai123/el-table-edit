@@ -11,7 +11,7 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 export default {
-  version: "1.2.1",
+  version: "1.1.1",
   install,
   ElTableEdit,
   EditItem,
