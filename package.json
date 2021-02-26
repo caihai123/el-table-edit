@@ -1,0 +1,31 @@
+{
+  "name": "el-table-edit",
+  "version": "1.0.0",
+  "description": "一个基于element-ui的可编辑表格组件",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "keywords": [
+    "element-ui",
+    "el-table",
+    "edit",
+    "form"
+  ],
+  "author": "caihai123",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^4.2.1",
+    "mini-css-extract-plugin": "^0.10.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "terser-webpack-plugin": "^4.1.0",
+    "vue-loader": "^15.9.3",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.12",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "async-validator": "^1.8.1"
+  }
+}
