@@ -50,7 +50,7 @@
           type="primary"
           plain
         >
-          编辑
+          {{ editButText }}
         </el-button>
         <template v-else>
           <el-button
@@ -58,10 +58,10 @@
             size="small"
             type="primary"
           >
-            保存
+            {{ submitButText }}
           </el-button>
           <el-button size="small" @click="cancelEdit(scope.row, scope.$index)">
-            取消
+            {{ cancelButText }}
           </el-button>
         </template>
 
@@ -102,6 +102,18 @@ export default {
       type: Number,
       default: 250,
     },
+    editButText: {
+      type: String,
+      default: '编辑'
+    },
+    submitButText: {
+      type: String,
+      default: '保存'
+    },
+    cancelButText: {
+      type: String,
+      default: '取消'
+    }
   },
   methods: {
     // 编辑单行
