@@ -1,18 +1,20 @@
-import ElTableEdit from './src/index.vue';
-import EditItem from "./src/EditItem.vue"
+import ElTableEdit from "./src/index.vue";
+import EditItem from "./src/EditItem.vue";
 
-const install = function(Vue, opts = {}){
+const install = function (Vue) {
   Vue.component(ElTableEdit.name, ElTableEdit);
   Vue.component(EditItem.name, EditItem);
-}
+};
 
-if (typeof window !== 'undefined' && window.Vue) {
+if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 
 export default {
-  version: '1.0.0', 
+  version: "1.2.1",
   install,
   ElTableEdit,
-  EditItem
+  EditItem,
 };
+
+export { ElTableEdit, EditItem };
