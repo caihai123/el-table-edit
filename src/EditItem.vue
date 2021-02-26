@@ -35,10 +35,10 @@
 import Schema from "async-validator";
 
 export default {
-  name:"EditItem",
+  name: "EditItem",
   props: {
     value: {
-      type: [String,Number,Boolean],
+      type: [String, Number, Boolean],
       default: "",
     },
     options: {
@@ -46,7 +46,7 @@ export default {
       required: true,
     },
     size: {
-      validator: function(value) {
+      validator: function (value) {
         // 这个值必须匹配下列字符串中的一个
         return ["medium", "small", "mini", ""].indexOf(value) !== -1;
       },

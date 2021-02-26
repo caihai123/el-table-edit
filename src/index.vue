@@ -84,7 +84,7 @@ export default {
    * @delItem 点击删除时执行 参数：当前row
    * @submitRow 点击保存并通过验证 参数：当前 row,是否通过 valid
    */
-  name:"ElTableEdit",
+  name: "ElTableEdit",
   components: { EditItem },
   props: {
     // 表格数据
@@ -104,16 +104,16 @@ export default {
     },
     editButText: {
       type: String,
-      default: '编辑'
+      default: "编辑",
     },
     submitButText: {
       type: String,
-      default: '保存'
+      default: "保存",
     },
     cancelButText: {
       type: String,
-      default: '取消'
-    }
+      default: "取消",
+    },
   },
   methods: {
     // 编辑单行
