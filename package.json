@@ -1,6 +1,6 @@
 {
   "name": "el-table-edit",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "一个基于element-ui的可编辑表格组件",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "element-ui",
     "el-table",
     "edit",
-    "form"
+    "editor",
+    "form",
+    "async-validator"
   ],
   "author": "caihai123",
   "license": "ISC",
