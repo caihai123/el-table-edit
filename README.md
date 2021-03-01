@@ -96,34 +96,38 @@ export default {
 
 ### ElTableEdit
 
-| 参数          | 说明         | 类型   | 可选值 | 默认值 |
-| ------------- | ------------ | ------ | ------ | ------ |
-| data          | tabledata    | Array  |        | []     |
-| columns       | 列配置       | Array  |        | []     |
-| actionsWidth  | 操作栏宽度   | Number |        | 250    |
-| editButText   | 编辑按钮文字 | String |        | 编辑   |
-| submitButText | 保存按钮文字 | String |        | 保存   |
-| cancelButText | 取消按钮文字 | String |        | 取消   |
+| 参数              | 说明         | 类型             | 可选值 | 默认值 |
+| ----------------- | ------------ | ---------------- | ------ | ------ |
+| data              | tabledata    | Array            |        | []     |
+| columns           | 列配置       | Array            |        | []     |
+| actionsWidth      | 操作栏宽度   | Number           |        | 250    |
+| editButText       | 编辑按钮文字 | String           |        | 编辑   |
+| submitButText     | 保存按钮文字 | String           |        | 保存   |
+| cancelButText     | 取消按钮文字 | String           |        | 取消   |
+| actionsFixed      | 操作栏固定   | 与 el-table 一致 |        | false  |
+| el-table 其他属性 |              |                  |        |        |
 
 ### columns
 
-| 参数      | 说明                                    | 类型                                                  |
-| --------- | --------------------------------------- | ----------------------------------------------------- |
-| title     | 列标题                                  |                                                       |
-| key       | 与 data 对应的字段名                    | String                                                |
-| width     | 列宽度                                  | 与 el-table 一致                                      |
-| minWidth  | 列最小宽度                              | 与 el-table 一致                                      |
-| edit      | 是否可编辑                              | Boolean                                               |
-| rules     | 可编辑时的验证规则                      | Array                                                 |
-| clearable | 编辑时的 input 是否可清空               | 与 el-input 一致                                      |
-| type      | 当前列字段的类型                        | 目前可选‘icon’，‘select’                              |
-| options   | type 为 select 时，用于过滤或选择的数组 | [{label:"男",value:"1",},{label:"女",value:"2"}] |
+| 参数      | 说明                                    | 类型                                                                    |
+| --------- | --------------------------------------- | ----------------------------------------------------------------------- |
+| title     | 列标题                                  |                                                                         |
+| key       | 与 data 对应的字段名                    | String                                                                  |
+| width     | 列宽度                                  | 与 el-table 一致                                                        |
+| minWidth  | 列最小宽度                              | 与 el-table 一致                                                        |
+| edit      | 是否可编辑                              | Boolean                                                                 |
+| rules     | 可编辑时的验证规则                      | Array                                                                   |
+| clearable | 编辑时的 input 是否可清空               | 与 el-input 一致                                                        |
+| type      | 当前列字段的类型                        | 目前可选‘index’，‘selection’，‘icon’，‘select’ ,‘textarea’ ，默认‘text’ |
+| options   | type 为 select 时，用于过滤或选择的数组 | 例： [{label:"男",value:"1",},{label:"女",value:"2"}]                   |
+| fixed     | 列固定                                  | 与 el-table 一致                                                        |
 
 ### Events
 
-| 事件名称  | 说明         | 回调参数       |
-| --------- | ------------ | -------------- |
-| submitRow | 点击行保存时 | （row，valid） |
+| 事件名称          | 说明         | 回调参数       |
+| ----------------- | ------------ | -------------- |
+| submitRow         | 点击行保存时 | （row，valid） |
+| el-table 其他事件 |              |                |
 
 ### Slot
 

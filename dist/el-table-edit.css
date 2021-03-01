@@ -1,11 +1,11 @@
 
-.check-item[data-v-5e662294] {
+.check---item[data-v-5e662294] {
   position: relative;
 }
-.is-error[data-v-5e662294] .el-input__inner {
+.is---error[data-v-5e662294] .el-input__inner {
   border-color: #f56c6c;
 }
-.item-error[data-v-5e662294] {
+.item---error[data-v-5e662294] {
   line-height: 16px;
   font-size: 12px;
   color: #f56c6c;

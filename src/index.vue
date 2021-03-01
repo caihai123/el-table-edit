@@ -1,40 +1,52 @@
 <template>
-  <el-table :data="data" v-bind="$attrs">
+  <el-table v-bind="$attrs" v-on="$listeners">
     <template slot="append">
       <slot name="append"></slot>
     </template>
-    <el-table-column
-      v-for="item in columns"
-      :label="item.title"
-      :key="item.key"
-      :width="item.width"
-      :min-width="item.minWidth"
-    >
-      <template slot-scope="scope">
-        <!-- 编辑时 -->
-        <template v-if="item.edit && scope.row._edit">
-          <EditItem
-            v-model="scope.row[item.key]"
-            :options="item"
-            :ref="'chechItem-' + scope.$index"
-          >
-          </EditItem>
+
+    <template v-for="item in columns">
+      <el-table-column
+        v-if="['index', 'selection'].includes(item.type)"
+        :key="item.type"
+        :type="item.type"
+        :index="item.index"
+        :fixed="item.fixed || false"
+      ></el-table-column>
+
+      <el-table-column
+        v-else
+        :label="item.title"
+        :key="item.key"
+        :width="item.width"
+        :min-width="item.minWidth"
+        :fixed="item.fixed || false"
+      >
+        <template slot-scope="scope">
+          <!-- 编辑时 -->
+          <template v-if="item.edit && scope.row._edit">
+            <EditItem
+              v-model="scope.row[item.key]"
+              :options="item"
+              :ref="'chechItem-' + scope.$index"
+            >
+            </EditItem>
+          </template>
+
+          <!-- 预览时 -->
+          <slot v-else :name="item.key" :row="scope.row" :$index="scope.$index">
+            <i v-if="item.type === 'icon'" :class="scope.row[item.key]"></i>
+
+            <span v-else-if="item.type === 'select'">
+              {{ scope.row[item.key] || selectFilter(item.options || []) }}
+            </span>
+
+            <span v-else>{{ scope.row[item.key] }}</span>
+          </slot>
         </template>
+      </el-table-column>
+    </template>
 
-        <!-- 预览时 -->
-        <slot v-else :name="item.key" :row="scope.row" :$index="scope.$index">
-          <i v-if="item.type === 'icon'" :class="scope.row[item.key]"></i>
-
-          <span v-else-if="item.type === 'select'">
-            {{ scope.row[item.key] || selectFilter(item.options) }}
-          </span>
-
-          <span v-else>{{ scope.row[item.key] }}</span>
-        </slot>
-      </template>
-    </el-table-column>
-
-    <el-table-column label="操作" :width="actionsWidth">
+    <el-table-column label="操作" :width="actionsWidth" :fixed="actionsFixed">
       <template slot="header">
         <slot name="header"></slot>
       </template>
@@ -87,11 +99,6 @@ export default {
   name: "ElTableEdit",
   components: { EditItem },
   props: {
-    // 表格数据
-    data: {
-      type: Array,
-      default: () => [],
-    },
     // 列配置
     columns: {
       type: Array,
@@ -101,6 +108,10 @@ export default {
     actionsWidth: {
       type: Number,
       default: 250,
+    },
+    actionsFixed: {
+      type: [Boolean, String],
+      default: false,
     },
     editButText: {
       type: String,

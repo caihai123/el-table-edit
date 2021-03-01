@@ -100,31 +100,38 @@ return /******/ (function(modules) { // webpackBootstrap
 /*!******************!*\
   !*** ./index.js ***!
   \******************/
-/*! exports provided: default */
+/*! exports provided: default, ElTableEdit, EditItem */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_index_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/index.vue */ "./src/index.vue");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ElTableEdit", function() { return _src_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
 /* harmony import */ var _src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/EditItem.vue */ "./src/EditItem.vue");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "EditItem", function() { return _src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
 
 
-const install = function(Vue, opts = {}){
+
+const install = function (Vue) {
   Vue.component(_src_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"].name, _src_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
   Vue.component(_src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"].name, _src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-}
+};
 
-if (typeof window !== 'undefined' && window.Vue) {
+if (typeof window !== "undefined" && window.Vue) {
   install(window.Vue);
 }
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  version: '1.0.0', 
+  version: "1.1.1",
   install,
   ElTableEdit: _src_index_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  EditItem: _src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  EditItem: _src_EditItem_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
 });
+
+
+
 
 /***/ }),
 
@@ -3553,14 +3560,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name:"EditItem",
+  name: "EditItem",
   props: {
     value: {
-      type: [String,Number,Boolean],
+      type: [String, Number, Boolean],
       default: "",
     },
     options: {
@@ -3568,7 +3578,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true,
     },
     size: {
-      validator: function(value) {
+      validator: function (value) {
         // 这个值必须匹配下列字符串中的一个
         return ["medium", "small", "mini", ""].indexOf(value) !== -1;
       },
@@ -3608,8 +3618,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return new Promise((resolve, reject) => {
-        const descriptor = { value: this.options.rules };
-        const validator = new async_validator__WEBPACK_IMPORTED_MODULE_0__["default"](descriptor);
+        const validator = new async_validator__WEBPACK_IMPORTED_MODULE_0__["default"]({ value: this.options.rules });
         validator.validate({ value: this.value }, (errors) => {
           if (errors) {
             this.isError = true;
@@ -3720,6 +3729,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3729,14 +3750,9 @@ __webpack_require__.r(__webpack_exports__);
    * @delItem 点击删除时执行 参数：当前row
    * @submitRow 点击保存并通过验证 参数：当前 row,是否通过 valid
    */
-  name:"ElTableEdit",
+  name: "ElTableEdit",
   components: { EditItem: _EditItem_vue__WEBPACK_IMPORTED_MODULE_0__["default"] },
   props: {
-    // 表格数据
-    data: {
-      type: Array,
-      default: () => [],
-    },
     // 列配置
     columns: {
       type: Array,
@@ -3746,6 +3762,22 @@ __webpack_require__.r(__webpack_exports__);
     actionsWidth: {
       type: Number,
       default: 250,
+    },
+    actionsFixed: {
+      type: [Boolean, String],
+      default: false,
+    },
+    editButText: {
+      type: String,
+      default: "编辑",
+    },
+    submitButText: {
+      type: String,
+      default: "保存",
+    },
+    cancelButText: {
+      type: String,
+      default: "取消",
     },
   },
   methods: {
@@ -3806,8 +3838,8 @@ var render = function() {
     "div",
     {
       class: {
-        "check-item": _vm.options.rules && _vm.options.rules.length,
-        "is-error": _vm.isError
+        "check---item": _vm.options.rules && _vm.options.rules.length,
+        "is---error": _vm.isError
       }
     },
     [
@@ -3838,9 +3870,11 @@ var render = function() {
           )
         : _c("el-input", {
             attrs: {
+              type: _vm.options.type === "textarea" ? "textarea" : "text",
               placeholder: _vm.options.placeholder || "请输入内容",
               clearable: _vm.options.clearable,
-              size: _vm.size
+              size: _vm.size,
+              autosize: { minRows: 1, maxRows: 4 }
             },
             model: {
               value: _vm.modelValue,
@@ -3884,75 +3918,93 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "el-table",
-    _vm._b({ attrs: { data: _vm.data } }, "el-table", _vm.$attrs, false),
+    _vm._g(_vm._b({}, "el-table", _vm.$attrs, false), _vm.$listeners),
     [
       _c("template", { slot: "append" }, [_vm._t("append")], 2),
       _vm._v(" "),
       _vm._l(_vm.columns, function(item) {
-        return _c("el-table-column", {
-          key: item.key,
-          attrs: {
-            label: item.title,
-            width: item.width,
-            "min-width": item.minWidth
-          },
-          scopedSlots: _vm._u(
-            [
-              {
-                key: "default",
-                fn: function(scope) {
-                  return [
-                    item.edit && scope.row._edit
-                      ? [
-                          _c("EditItem", {
-                            ref: "chechItem-" + scope.$index,
-                            refInFor: true,
-                            attrs: { options: item },
-                            model: {
-                              value: scope.row[item.key],
-                              callback: function($$v) {
-                                _vm.$set(scope.row, item.key, $$v)
-                              },
-                              expression: "scope.row[item.key]"
-                            }
-                          })
-                        ]
-                      : _vm._t(
-                          item.key,
-                          [
-                            item.type === "icon"
-                              ? _c("i", { class: scope.row[item.key] })
-                              : item.type === "select"
-                              ? _c("span", [
-                                  _vm._v(
-                                    "\n          " +
-                                      _vm._s(
-                                        scope.row[item.key] ||
-                                          _vm.selectFilter(item.options)
-                                      ) +
-                                      "\n        "
-                                  )
-                                ])
-                              : _c("span", [
-                                  _vm._v(_vm._s(scope.row[item.key]))
-                                ])
-                          ],
-                          { row: scope.row, $index: scope.$index }
-                        )
-                  ]
+        return [
+          ["index", "selection"].includes(item.type)
+            ? _c("el-table-column", {
+                key: item.type,
+                attrs: {
+                  type: item.type,
+                  index: item.index,
+                  fixed: item.fixed || false
                 }
-              }
-            ],
-            null,
-            true
-          )
-        })
+              })
+            : _c("el-table-column", {
+                key: item.key,
+                attrs: {
+                  label: item.title,
+                  width: item.width,
+                  "min-width": item.minWidth,
+                  fixed: item.fixed || false
+                },
+                scopedSlots: _vm._u(
+                  [
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          item.edit && scope.row._edit
+                            ? [
+                                _c("EditItem", {
+                                  ref: "chechItem-" + scope.$index,
+                                  refInFor: true,
+                                  attrs: { options: item },
+                                  model: {
+                                    value: scope.row[item.key],
+                                    callback: function($$v) {
+                                      _vm.$set(scope.row, item.key, $$v)
+                                    },
+                                    expression: "scope.row[item.key]"
+                                  }
+                                })
+                              ]
+                            : _vm._t(
+                                item.key,
+                                [
+                                  item.type === "icon"
+                                    ? _c("i", { class: scope.row[item.key] })
+                                    : item.type === "select"
+                                    ? _c("span", [
+                                        _vm._v(
+                                          "\n            " +
+                                            _vm._s(
+                                              scope.row[item.key] ||
+                                                _vm.selectFilter(
+                                                  item.options || []
+                                                )
+                                            ) +
+                                            "\n          "
+                                        )
+                                      ])
+                                    : _c("span", [
+                                        _vm._v(_vm._s(scope.row[item.key]))
+                                      ])
+                                ],
+                                { row: scope.row, $index: scope.$index }
+                              )
+                        ]
+                      }
+                    }
+                  ],
+                  null,
+                  true
+                )
+              })
+        ]
       }),
       _vm._v(" "),
       _c(
         "el-table-column",
         {
-          attrs: { label: "操作", width: _vm.actionsWidth },
+          attrs: {
+            label: "操作",
+            width: _vm.actionsWidth,
+            fixed: _vm.actionsFixed
+          },
           scopedSlots: _vm._u(
             [
               {
@@ -3977,7 +4029,13 @@ var render = function() {
                                   }
                                 }
                               },
-                              [_vm._v("\n        编辑\n      ")]
+                              [
+                                _vm._v(
+                                  "\n        " +
+                                    _vm._s(_vm.editButText) +
+                                    "\n      "
+                                )
+                              ]
                             )
                           : [
                               _c(
@@ -3993,7 +4051,13 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("\n          保存\n        ")]
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(_vm.submitButText) +
+                                      "\n        "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -4009,7 +4073,13 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._v("\n          取消\n        ")]
+                                [
+                                  _vm._v(
+                                    "\n          " +
+                                      _vm._s(_vm.cancelButText) +
+                                      "\n        "
+                                  )
+                                ]
                               )
                             ],
                         _vm._v(" "),

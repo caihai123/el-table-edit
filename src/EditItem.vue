@@ -1,8 +1,8 @@
 <template>
   <div
     :class="{
-      'check-item': options.rules && options.rules.length,
-      'is-error': isError,
+      'check---item': options.rules && options.rules.length,
+      'is---error': isError,
     }"
   >
     <el-select
@@ -20,12 +20,15 @@
       >
       </el-option>
     </el-select>
+
     <el-input
       v-else
       v-model="modelValue"
+      :type="options.type === 'textarea' ? 'textarea' : 'text'"
       :placeholder="options.placeholder || '请输入内容'"
       :clearable="options.clearable"
       :size="size"
+      :autosize="{ minRows: 1, maxRows: 4}"
     ></el-input>
     <div v-if="isError && !hiddenMessage" class="item-error">{{ message }}</div>
   </div>
@@ -86,8 +89,7 @@ export default {
       }
 
       return new Promise((resolve, reject) => {
-        const descriptor = { value: this.options.rules };
-        const validator = new Schema(descriptor);
+        const validator = new Schema({ value: this.options.rules });
         validator.validate({ value: this.value }, (errors) => {
           if (errors) {
             this.isError = true;
@@ -110,13 +112,13 @@ export default {
 </script>
 
 <style scoped>
-.check-item {
+.check---item {
   position: relative;
 }
-.is-error >>> .el-input__inner {
+.is---error >>> .el-input__inner {
   border-color: #f56c6c;
 }
-.item-error {
+.item---error {
   line-height: 16px;
   font-size: 12px;
   color: #f56c6c;
