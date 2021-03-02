@@ -30,7 +30,7 @@
       :size="size"
       :autosize="{ minRows: 1, maxRows: 4}"
     ></el-input>
-    <div v-if="isError && !hiddenMessage" class="item-error">{{ message }}</div>
+    <div v-if="isError && !hiddenMessage" class="item---error">{{ message }}</div>
   </div>
 </template>
 
